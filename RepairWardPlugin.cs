@@ -85,7 +85,6 @@ namespace RepairWard
                         }
                         catch
                         {
-                            Log("EXCEPTION CAUGHT!");
                             continue;
                         }
                     }

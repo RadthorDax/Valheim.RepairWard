@@ -333,5 +333,5 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 
-# Valheim + BepInEx DLLs
+# Valheim, Unity & BepInEx DLLs
 Libs/

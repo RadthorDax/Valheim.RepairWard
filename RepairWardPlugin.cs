@@ -21,6 +21,7 @@ namespace RepairWard
         public static ConfigEntry<int> nexusID;
         public static ConfigEntry<bool> modEnabled;
         public static ConfigEntry<string> modKey;
+        public static ConfigEntry<bool> repairPlayerBuiltOnly;
         //public static ConfigEntry<int> repairDuration;
 
         private void Awake()
@@ -28,6 +29,7 @@ namespace RepairWard
             nexusID = Config.Bind<int>("General", "NexusID", 322, "NexusMods ID for updates");
             modEnabled = Config.Bind<bool>("General", "Enabled", true, "Enable the mod");
             modKey = Config.Bind<string>("General", "ModifierKey", "left shift", "Modifier key to trigger the repair function of a ward. Find valid keycodes here: https://docs.unity3d.com/Manual/ConventionalGameInput.html");
+            repairPlayerBuiltOnly = Config.Bind<bool>("General", "RepairPlayerBuiltOnly", false, "Prevent Wards repairing existing building structures placed by the game.");
             //repairDuration = Config.Bind<int>("General", "RepairDuration", 10, "Number of seconds to fully repair warded objects. Use 0 for instant repair.");
 
             if (!modEnabled.Value)
@@ -73,7 +75,7 @@ namespace RepairWard
                     {
                         try
                         {
-                            if (p.IsPlacedByPlayer())
+                            if (!repairPlayerBuiltOnly.Value || p.IsPlacedByPlayer())
                             {
                                 WearNTear wnt = p.GetComponentInParent<WearNTear>();
                                 if (wnt?.GetHealthPercentage() < 1f)
